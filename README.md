@@ -149,6 +149,17 @@ Inside the TUI:
 | `/resume` | Reopen an earlier session, including forks; they show where they came from. |
 | `/` | The agent's own slash commands, alongside acpc's. |
 
+### Agent response formatting
+
+ACP replies are rendered as Markdown. ANSI colors and text styles included in
+an agent's replies (for example, BBilingual's gray translation lines) are decoded
+before wrapping, so style codes do not appear as text or distort column widths.
+Markdown headings, lists, tables and code keep their normal layout.
+
+Claude Code plugins that only change Claude's own UI must expose their output
+through the remote agent to appear here. Display-only translations may not be
+included when the agent replays a saved session.
+
 ### Signing in
 
 When an agent answers `auth_required`, acpc offers the sign-in methods the
@@ -239,6 +250,7 @@ applied. `patches/*.patch` are the patches, in order:
 6. Number and multi-select fields in elicitation forms.
 7. Upstream schema fixture tests skipped, since the fixtures don't include
    `acpc/*`.
+8. ANSI styles in ACP replies decoded before Markdown wrapping and table layout.
 
 To change upstream code:
 1. Edit and commit in `third_party/codex`.
